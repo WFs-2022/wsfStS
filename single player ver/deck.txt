@@ -5,7 +5,7 @@ Strike
 Strike
 Strike
 Strikeee
-Mana hit
+Mana_hit
 Crash
 Defend
 Defend
@@ -13,9 +13,9 @@ Defend
 Defend
 Defend
 Dodge
-Power up
-Power up
-Armor up
-Mana save
-Twice act
+Power_up
+Power_up
+Armor_up
+Mana_save
+Twice_act
 Hypnotize

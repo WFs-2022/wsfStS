@@ -31,14 +31,14 @@ struct Card {
 map<string, Card> cardDict = {
 							  {"Strike", {"Strike", "phy", 1, 0, 5, 0, 0, 0, 0, 0, 0, 1, "Deal 5 damage"}}, 
 							  {"Strikeee", {"Strikeee", "phy", 1, 0, 2, 0, 0, 0, 0, 0, 0, 3, "Deal 2 damage to a player 3 times"}}, 
-							  {"Mana hit", {"Mana hit", "phy", 2, 0, 6, 0, 0, 0, 0, 0, 0, 1, "Deal 7 damage, and you'll get 1 more mana next turn"}}, 
+							  {"Mana_hit", {"Mana hit", "phy", 2, 0, 6, 0, 0, 0, 0, 0, 0, 1, "Deal 7 damage, and you'll get 1 more mana next turn"}}, 
 							  {"Crash", {"Crash", "phy", 1, 0, 3, 0, 0, 1, 0, 0, 0, 1, "Deal 3 damage and draw 1 card"}}, 
 							  {"Defend", {"Defend", "phy", 1, 1, 0, 6, 0, 0, 0, 0, 0, 1, "Get 6 block"}}, 
 							  {"Dodge", {"Dodge", "phy", 1, 1, 0, 4, 0, 2, 0, 0, 0, 1, "Get 4 block and draw 2 cards"}}, 
-							  {"Power up", {"Power up" , "ablt", 1, 1, 0, 0, 0, 0, 1, 0, 0, 1, "Add 1 strength"}}, 
-							  {"Armor up", {"Armor up" , "ablt", 1, 1, 0, 0, 0, 0, 0, 2, 0, 1, "Add 2 agility"}}, 
-							  {"Mana save", {"Mana save", "mag" , 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, "You'll get 2 more mana next turn"}}, 
-							  {"Twice act", {"Twice act", "mag" , 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, "The next 'phy' card you use this turn will be processed twice"}}, 
+							  {"Power_up", {"Power up" , "ablt", 1, 1, 0, 0, 0, 0, 1, 0, 0, 1, "Add 1 strength"}}, 
+							  {"Armor_up", {"Armor up" , "ablt", 1, 1, 0, 0, 0, 0, 0, 2, 0, 1, "Add 2 agility"}}, 
+							  {"Mana_save", {"Mana save", "mag" , 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, "You'll get 2 more mana next turn"}}, 
+							  {"Twice_act", {"Twice act", "mag" , 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, "The next 'phy' card you use this turn will be processed twice"}}, 
 							  {"Hypnotize", {"Hypnotize", "psy" , 1, 0, 0, 0, 0, 0,-1,-1, 0, 1, "Decrease a player's strength and defence for 1"}}
 							 };
 
@@ -87,14 +87,14 @@ void deckImport(Player& player) {
 		player.deck.push_back({"Armor up" , "ablt", 1, 1, 0, 0, 0, 0, 0, 2, 0, 1, "Add 2 agility"});
 		player.deck.push_back({"Mana save", "mag" , 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, "You'll get 2 more mana next turn"});
 		player.deck.push_back({"Twice act", "mag" , 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, "The next 'phy' card you use this turn will be processed twice"});
-		player.deck.push_back({"hypnotize", "psy" , 1, 0, 0, 0, 0, 0,-1,-1, 0, 1, "Decrease a player's strength and defence for 1"});
+		player.deck.push_back({"Hypnotize", "psy" , 1, 0, 0, 0, 0, 0,-1,-1, 0, 1, "Decrease a player's strength and defence for 1"});
 	} else {
 		// importing
 		int deckSize;
 		cin >> deckSize;
 		string cardName;
 		for (int i = 0; i < deckSize; i++){
-			getline(cin, cardName);
+			cin >> cardName;
 			player.deck.push_back(cardDict[cardName]);
 		}
 		freopen("CON", "r", stdin);
