@@ -27,6 +27,21 @@ struct Card {
     string text;
 };
 
+// Map for str2Card (deck to player.deck)
+map<string, Card> cardDict = {
+							  {"Strike", {"Strike", "phy", 1, 0, 5, 0, 0, 0, 0, 0, 0, 1, "Deal 5 damage"}}, 
+							  {"Strikeee", {"Strikeee", "phy", 1, 0, 2, 0, 0, 0, 0, 0, 0, 3, "Deal 2 damage to a player 3 times"}}, 
+							  {"Mana hit", {"Mana hit", "phy", 2, 0, 6, 0, 0, 0, 0, 0, 0, 1, "Deal 7 damage, and you'll get 1 more mana next turn"}}, 
+							  {"Crash", {"Crash", "phy", 1, 0, 3, 0, 0, 1, 0, 0, 0, 1, "Deal 3 damage and draw 1 card"}}, 
+							  {"Defend", {"Defend", "phy", 1, 1, 0, 6, 0, 0, 0, 0, 0, 1, "Get 6 block"}}, 
+							  {"Dodge", {"Dodge", "phy", 1, 1, 0, 4, 0, 2, 0, 0, 0, 1, "Get 4 block and draw 2 cards"}}, 
+							  {"Power up", {"Power up" , "ablt", 1, 1, 0, 0, 0, 0, 1, 0, 0, 1, "Add 1 strength"}}, 
+							  {"Armor up", {"Armor up" , "ablt", 1, 1, 0, 0, 0, 0, 0, 2, 0, 1, "Add 2 agility"}}, 
+							  {"Mana save", {"Mana save", "mag" , 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, "You'll get 2 more mana next turn"}}, 
+							  {"Twice act", {"Twice act", "mag" , 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, "The next 'phy' card you use this turn will be processed twice"}}, 
+							  {"Hypnotize", {"Hypnotize", "psy" , 1, 0, 0, 0, 0, 0,-1,-1, 0, 1, "Decrease a player's strength and defence for 1"}}
+							 };
+
 // Player structure
 struct Player {
 	string name;
@@ -37,33 +52,77 @@ struct Player {
 	vector<Card> tomb;
 	vector<Card> exil;
 	vector<Card> stat;
-} enemy;
+} player, enemy;
 
 // the initial health of PVE player and enemy
 int PVE_PHealth = 60, PVE_EHealth = 80;
+// the name of player and PVE enemy
+string playerName = "player", PVE_enemyName = "zombie";
 
 // Function to initialize player's deck
-void loadDeck(Player& player) {
-	player.deck.push_back({"Strike"   , "phy" , 1, 0, 5, 0, 0, 0, 0, 0, 0, 1, "Deal 5 damage"});
-	player.deck.push_back({"Strike"   , "phy" , 1, 0, 5, 0, 0, 0, 0, 0, 0, 1, "Deal 5 damage"});
-	player.deck.push_back({"Strike"   , "phy" , 1, 0, 5, 0, 0, 0, 0, 0, 0, 1, "Deal 5 damage"});
-	player.deck.push_back({"Strike"   , "phy" , 1, 0, 5, 0, 0, 0, 0, 0, 0, 1, "Deal 5 damage"});
-	player.deck.push_back({"Strike"   , "phy" , 1, 0, 5, 0, 0, 0, 0, 0, 0, 1, "Deal 5 damage"});
-	player.deck.push_back({"Mana hit" , "phy" , 2, 0, 6, 0, 0, 0, 0, 0, 0, 1, "Deal 7 damage, and you'll get 1 more mana next turn"});
-	player.deck.push_back({"Strikeee" , "phy" , 1, 0, 2, 0, 0, 0, 0, 0, 0, 3, "Deal 2 damage to a player 3 times"});
-	player.deck.push_back({"Crash"    , "phy" , 1, 0, 3, 0, 0, 1, 0, 0, 0, 1, "Deal 3 damage and draw 1 card"});
-	player.deck.push_back({"Defend"   , "phy" , 1, 1, 0, 6, 0, 0, 0, 0, 0, 1, "Get 6 block"});
-	player.deck.push_back({"Defend"   , "phy" , 1, 1, 0, 6, 0, 0, 0, 0, 0, 1, "Get 6 block"});
-	player.deck.push_back({"Defend"   , "phy" , 1, 1, 0, 6, 0, 0, 0, 0, 0, 1, "Get 6 block"});
-	player.deck.push_back({"Defend"   , "phy" , 1, 1, 0, 6, 0, 0, 0, 0, 0, 1, "Get 6 block"});
-	player.deck.push_back({"Defend"   , "phy" , 1, 1, 0, 6, 0, 0, 0, 0, 0, 1, "Get 6 block"});
-	player.deck.push_back({"Dodge"    , "phy" , 1, 1, 0, 4, 0, 2, 0, 0, 0, 1, "Get 4 block and draw 2 cards"});
-	player.deck.push_back({"Power up" , "ablt", 1, 1, 0, 0, 0, 0, 1, 0, 0, 1, "Add 1 strength"});
-	player.deck.push_back({"Power up" , "ablt", 1, 1, 0, 0, 0, 0, 1, 0, 0, 1, "Add 1 strength"});
-	player.deck.push_back({"Armor up" , "ablt", 1, 1, 0, 0, 0, 0, 0, 2, 0, 1, "Add 2 agility"});
-	player.deck.push_back({"Mana save", "mag" , 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, "You'll get 2 more mana next turn"});
-	player.deck.push_back({"Twice act", "mag" , 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, "The next 'phy' card you use this turn will be processed twice"});
-	player.deck.push_back({"hypnotize", "psy" , 1, 0, 0, 0, 0, 0,-1,-1, 0, 1, "Decrease a player's strength and defence for 1"});
+void deckImport(Player& player) {
+	cout << "* Now cleaning up the old deck...\n";
+	player.deck.erase(player.deck.begin(), player.deck.end());
+	cout << "* Now starting to import deck from deck.txt\n";
+	if(freopen("deck.txt", "r", stdin) == NULL){
+		// no file for import then use startup deck		
+		freopen("CON", "r", stdin);
+		cout<<"* No deck found. pls put a deck.txt under the folder of this program if importing. Now using the startup deck.\n";
+		player.deck.push_back({"Strike"   , "phy" , 1, 0, 5, 0, 0, 0, 0, 0, 0, 1, "Deal 5 damage"});
+		player.deck.push_back({"Strike"   , "phy" , 1, 0, 5, 0, 0, 0, 0, 0, 0, 1, "Deal 5 damage"});
+		player.deck.push_back({"Strike"   , "phy" , 1, 0, 5, 0, 0, 0, 0, 0, 0, 1, "Deal 5 damage"});
+		player.deck.push_back({"Strike"   , "phy" , 1, 0, 5, 0, 0, 0, 0, 0, 0, 1, "Deal 5 damage"});
+		player.deck.push_back({"Strike"   , "phy" , 1, 0, 5, 0, 0, 0, 0, 0, 0, 1, "Deal 5 damage"});
+		player.deck.push_back({"Mana hit" , "phy" , 2, 0, 6, 0, 0, 0, 0, 0, 0, 1, "Deal 7 damage, and you'll get 1 more mana next turn"});
+		player.deck.push_back({"Strikeee" , "phy" , 1, 0, 2, 0, 0, 0, 0, 0, 0, 3, "Deal 2 damage to a player 3 times"});
+		player.deck.push_back({"Crash"    , "phy" , 1, 0, 3, 0, 0, 1, 0, 0, 0, 1, "Deal 3 damage and draw 1 card"});
+		player.deck.push_back({"Defend"   , "phy" , 1, 1, 0, 6, 0, 0, 0, 0, 0, 1, "Get 6 block"});
+		player.deck.push_back({"Defend"   , "phy" , 1, 1, 0, 6, 0, 0, 0, 0, 0, 1, "Get 6 block"});
+		player.deck.push_back({"Defend"   , "phy" , 1, 1, 0, 6, 0, 0, 0, 0, 0, 1, "Get 6 block"});
+		player.deck.push_back({"Defend"   , "phy" , 1, 1, 0, 6, 0, 0, 0, 0, 0, 1, "Get 6 block"});
+		player.deck.push_back({"Defend"   , "phy" , 1, 1, 0, 6, 0, 0, 0, 0, 0, 1, "Get 6 block"});
+		player.deck.push_back({"Dodge"    , "phy" , 1, 1, 0, 4, 0, 2, 0, 0, 0, 1, "Get 4 block and draw 2 cards"});
+		player.deck.push_back({"Power up" , "ablt", 1, 1, 0, 0, 0, 0, 1, 0, 0, 1, "Add 1 strength"});
+		player.deck.push_back({"Power up" , "ablt", 1, 1, 0, 0, 0, 0, 1, 0, 0, 1, "Add 1 strength"});
+		player.deck.push_back({"Armor up" , "ablt", 1, 1, 0, 0, 0, 0, 0, 2, 0, 1, "Add 2 agility"});
+		player.deck.push_back({"Mana save", "mag" , 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, "You'll get 2 more mana next turn"});
+		player.deck.push_back({"Twice act", "mag" , 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, "The next 'phy' card you use this turn will be processed twice"});
+		player.deck.push_back({"hypnotize", "psy" , 1, 0, 0, 0, 0, 0,-1,-1, 0, 1, "Decrease a player's strength and defence for 1"});
+	} else {
+		// importing
+		int deckSize;
+		cin >> deckSize;
+		string cardName;
+		for (int i = 0; i < deckSize; i++){
+			getline(cin, cardName);
+			player.deck.push_back(cardDict[cardName]);
+		}
+		freopen("CON", "r", stdin);
+	}
+	cout << "* Deck loading complete.\n";
+}
+
+// Function to print the player's deck (player.deck)
+void deckCheck(Player& player){
+	for (unsigned int i = 0; i < player.deck.size(); i++)
+		cout << player.deck[i].name << endl;
+	return;
+} 
+// Function to show all cards involved by this program
+void cardsShow(){
+	cout << "All cards can be get are: " << endl << \
+	"Strike		phy	Deal 5 damage" << endl <<\
+	"Strikeee	phy	Deal 2 damage to a player 3 times" << endl <<\
+	"Mana hit	phy	Deal 7 damage, and you'll get 1 more mana next turn" << endl <<\
+	"Crash		phy	Deal 3 damage and draw 1 card" << endl <<\
+	"Defend		phy	Get 6 block" << endl <<\
+	"Dodge		phy	Get 4 block and draw 2 cards" << endl <<\
+	"Power up	ablt	Add 1 strength" << endl <<\
+	"Armor up	ablt	Add 2 agility" << endl <<\
+	"Mana save	mag	You'll get 2 more mana next turn" << endl <<\
+	"Twice act	mag	The next 'phy' card you use this turn will be processed twice" << endl <<\
+	"Hypnotize	psy	Decrease a player's strength and defence for 1" << endl;
+	return;
 }
 
 // Function to shuffle the deck
@@ -110,6 +169,8 @@ void battleP(Player& obj, int damage){
 // Function to simulate a duel between player and computer
 void duelPVE(Player& player, Player& enemy) {
 	// initialization of the duel
+	player = {playerName, PVE_PHealth, 0, 0, 0, 0, {}, {}, {}, {}, {}};
+	enemy = {PVE_enemyName, PVE_EHealth, 0, 0, 0, 0, {}, {}, {}, {}, {}};
 	shuffleDeck(player);
 	player.health = PVE_PHealth;
 	enemy.health = PVE_EHealth;
@@ -152,7 +213,7 @@ void duelPVE(Player& player, Player& enemy) {
 			cin >> choice;
 			// card choice processing
 			if (choice < 0 || choice > player.hand.size()) {
-				// out of cards/controller(0)
+				// out of cards/controller (0)
 				cout << "><Invalid choice!" << endl;
 			} else if (choice == 0){
 				// go to EP
@@ -292,40 +353,45 @@ void duelPVE(Player& player, Player& enemy) {
 
 int main() {
 	init();
-	
-	Player player = {"Player", 60, 0, 0, 0, 0, {}, {}, {}, {}, {}};
-	loadDeck(player);
-	enemy = {"Goblin", 80, 0, 0, 0, 0, {}, {}, {}, {}, {}};
+	cout << "Welcome to the wsfStS! \n* Automatically importing the deck...\n";
 
-	cout << "Welcome to the wsfStS!";
+	deckImport(player);
+
 	string input;
 	while(1){
+		// main menu 
 		cout << "\nPls select a mode to play(input the number):\n";
 		cout << "1. PVE mode\n2. PVP mode(not done yet)\n";
 		cout << "3. settings\n4. about\n5. exit the game\n";
 		cin >> input;
 		if (input == "1"){
+			// single player
 			duelPVE(player, enemy);
 			player.health = PVE_PHealth;
 			enemy.health = PVE_EHealth;
 			cout << "PVE mode game over!\n";
 		} else if (input == "2"){
+			// todo in multi player version
 			cout << "This single player versions doesn't support PVP mode :(\n";
 		} else if (input == "3"){
+			// settings menu
 			while (1) {
 				cout << "\nSettings:\n";
-				cout << "1. Change player name (" << player.name << ")\n";
-				cout << "2. Set PVE mode enemy name (" << enemy.name << ")\n";
+				cout << "1. Change player name (" << playerName << ")\n";
+				cout << "2. Set PVE mode enemy name (" << PVE_enemyName << ")\n";
 				cout << "3. Set PVE mode player health (" << PVE_PHealth << ")\n";
 				cout << "4. Set PVE mode enemy health (" << PVE_EHealth << ")\n";
-				cout << "5. Quit Settings\n";
+				cout << "5. Check your deck\n";
+				cout << "6. Import a deck\n";
+				cout << "7. Show all cards\n";
+				cout << "8. Quit Settings\n";
 				cin >> input;
 				if(input == "1"){
 					cout << "Input the new player name: ";
-					cin >> player.name;
+					cin >> playerName;
 				} else if(input == "2"){
 					cout << "Input the new enemy name: ";
-					cin >> enemy.name;
+					cin >> PVE_enemyName;
 				} else if(input == "3"){
 					cout << "Input the new player health: ";
 					cin >> PVE_PHealth;
@@ -333,6 +399,12 @@ int main() {
 					cout << "Input the new enemy health: ";
 					cin >> PVE_EHealth;
 				} else if(input == "5"){
+					deckCheck(player);
+				} else if(input == "6"){
+					deckImport(player);
+				} else if(input == "7"){
+					cardsShow();
+				} else if(input == "8"){
 					break;
 				} else {
 					cout << "* Invalid choice, pls try again.\n";
