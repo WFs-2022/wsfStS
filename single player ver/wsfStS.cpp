@@ -95,7 +95,7 @@ void deckImport(Player& player) {
 		string cardName;
 		for (int i = 0; i < deckSize; i++){
 			cin >> cardName;
-			player.deck.push_back(cardDict[cardName]);
+			player.deck.push_back(cardDict[cardName]); 
 		}
 		freopen("CON", "r", stdin);
 	}
@@ -169,7 +169,7 @@ void battleP(Player& obj, int damage){
 // Function to simulate a duel between player and computer
 void duelPVE(Player& player, Player& enemy) {
 	// initialization of the duel
-	player = {playerName, PVE_PHealth, 0, 0, 0, 0, {}, {}, {}, {}, {}};
+	player = {playerName, PVE_PHealth, 0, 0, 0, 0, player.deck, {}, {}, {}, {}};
 	enemy = {PVE_enemyName, PVE_EHealth, 0, 0, 0, 0, {}, {}, {}, {}, {}};
 	shuffleDeck(player);
 	player.health = PVE_PHealth;

@@ -1,6 +1,7 @@
 # wsfStS (Introduction in English)
 - a self-made C++ card game
 - CLI thus hasn't much functions (status of players  or  props)
+- You can add some more cards to the game by adding them to the wsfStS.cpp file. (temporarily no guide)
 ## todo list
 - [X] single player mode
   - [X] deck importing
@@ -19,13 +20,14 @@
 # wsfStS（中文介绍）
 - 自制C++卡牌游戏
 - CLI界面，从而较原本少了道具，以及部分人物状态
+- 你可以在wsfStS.cpp（源代码）中添加更多卡牌（，但暂时没有引导）。
 ## 待办列表
 - [X] 单人模式
   - [X] 卡组导入
   - [ ] 更多的常见卡！
 - [ ] 联机模式
   - [ ] 卡组导入
-  - [ ] 多人模式特有卡（比如康、阻止抽卡等）（<-不是说灰流丽）
+  - [ ] 多人模式特有卡（比如康、阻止抽卡等）（<-不是指灰流丽）
   - [ ] 服务端程序
 ## 关于卡组导入
 - 你可以通过创建一个文本文件（deck.txt，且与wsfStS.exe放置于同一目录）来导入自己的卡组，文件格式如下：
