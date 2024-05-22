@@ -16,8 +16,8 @@ using namespace std;
 
 // Declare of usual useful functions, copied from my other CPP games
 void init();
-POINT GetMousePos();
-void gotoxy(int x, int y);
+//POINT GetMousePos();
+//void gotoxy(int x, int y);
 
 // Card structure
 struct Card {
@@ -39,7 +39,7 @@ map<string, Card> cardDict = {
 							  {"Armor_up", {"Armor up" , "ablt", 1, 1, 0, 0, 0, 0, 0, 2, 0, 1, "Add 2 agility"}}, 
 							  {"Mana_save", {"Mana save", "mag" , 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, "You'll get 2 more mana next turn"}}, 
 							  {"Twice_act", {"Twice act", "mag" , 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, "The next 'phy' card you use this turn will be processed twice"}}, 
-							  {"Hypnotize", {"Hypnotize", "psy" , 1, 0, 0, 0, 0, 0,-1,-1, 0, 1, "Decrease a player's strength and defence for 1"}}
+							  {"Hypnotize", {"Hypnotize", "psy" , 2, 0, 0, 0, 0, 0,-1,-1, 0, 1, "Decrease a player's strength and defence for 1"}}
 							 };
 
 // Player structure
@@ -87,7 +87,7 @@ void deckImport(Player& player) {
 		player.deck.push_back({"Armor up" , "ablt", 1, 1, 0, 0, 0, 0, 0, 2, 0, 1, "Add 2 agility"});
 		player.deck.push_back({"Mana save", "mag" , 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, "You'll get 2 more mana next turn"});
 		player.deck.push_back({"Twice act", "mag" , 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, "The next 'phy' card you use this turn will be processed twice"});
-		player.deck.push_back({"Hypnotize", "psy" , 1, 0, 0, 0, 0, 0,-1,-1, 0, 1, "Decrease a player's strength and defence for 1"});
+		player.deck.push_back({"Hypnotize", "psy" , 2, 0, 0, 0, 0, 0,-1,-1, 0, 1, "Decrease a player's strength and defence for 1"});
 	} else {
 		// importing
 		int deckSize;
@@ -361,8 +361,7 @@ int main() {
 	while(1){
 		// main menu 
 		cout << "\nPls select a mode to play(input the number):\n";
-		cout << "1. PVE mode\n2. PVP mode(not done yet)\n";
-		cout << "3. settings\n4. about\n5. exit the game\n";
+		cout << "1. PVE mode\n2. settings\n3. about\n4. exit the game\n";
 		cin >> input;
 		if (input == "1"){
 			// single player
@@ -370,10 +369,7 @@ int main() {
 			player.health = PVE_PHealth;
 			enemy.health = PVE_EHealth;
 			cout << "PVE mode game over!\n";
-		} else if (input == "2"){
-			// todo in multi player version
-			cout << "This single player versions doesn't support PVP mode :(\n";
-		} else if (input == "3"){
+		}else if (input == "2"){
 			// settings menu
 			while (1) {
 				cout << "\nSettings:\n";
@@ -410,13 +406,13 @@ int main() {
 					cout << "* Invalid choice, pls try again.\n";
 				}
 			}
-		} else if (input == "4"){
+		} else if (input == "3"){
 			cout << "A small simulate of StS but of CLI.\n";
 			cout << "Made by CVE-2020-0796 on 18th May, 2024.\n";
 			cout << "bilibili:  https://space.bilibili.com/518624115\n";
 			cout << "YouTube:  https://www.youtube.com/channel/UCazOP122G3Yo0JXFjuAfTlQ\n";
 			cout << "website:  https://wfs-2022.github.io/myNewWebsite/\n";
-		} else if (input == "5") break;
+		} else if (input == "4") break;
 		else cout << "* Invalid choice, pls try again.\n";
 	}
 	return 0;
@@ -434,21 +430,21 @@ void init(){
 //	system(cmd);
 //	SetWindowLongPtrA(GetConsoleWindow(), GWL_STYLE, GetWindowLongPtrA(GetConsoleWindow(),GWL_STYLE)& ~WS_SIZEBOX & ~WS_MAXIMIZEBOX & ~WS_MINIMIZEBOX);
 }
-POINT GetMousePos(){
-	POINT p;
-	GetCursorPos(&p);
-	ScreenToClient(GetForegroundWindow(),&p);
-	CONSOLE_FONT_INFO consoleCurrentFont;
-	GetCurrentConsoleFont(GetStdHandle(STD_OUTPUT_HANDLE), FALSE, &consoleCurrentFont);
-	p.x/=consoleCurrentFont.dwFontSize.X;
-	p.y/=consoleCurrentFont.dwFontSize.Y;
-	return p;
-}
-void gotoxy(int x, int y){
-	HANDLE hout;
-	COORD pos;
-	pos.X = x;
-	pos.Y = y;
-	hout = GetStdHandle(STD_OUTPUT_HANDLE);
-	SetConsoleCursorPosition(hout, pos);
-}
+//POINT GetMousePos(){
+//	POINT p;
+//	GetCursorPos(&p);
+//	ScreenToClient(GetForegroundWindow(),&p);
+//	CONSOLE_FONT_INFO consoleCurrentFont;
+//	GetCurrentConsoleFont(GetStdHandle(STD_OUTPUT_HANDLE), FALSE, &consoleCurrentFont);
+//	p.x/=consoleCurrentFont.dwFontSize.X;
+//	p.y/=consoleCurrentFont.dwFontSize.Y;
+//	return p;
+//}
+//void gotoxy(int x, int y){
+//	HANDLE hout;
+//	COORD pos;
+//	pos.X = x;
+//	pos.Y = y;
+//	hout = GetStdHandle(STD_OUTPUT_HANDLE);
+//	SetConsoleCursorPosition(hout, pos);
+//}
